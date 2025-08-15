@@ -1,7 +1,9 @@
+/* Tailwind imports */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Theme variables */
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -14,8 +16,157 @@
   }
 }
 
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Stack animation styles */
+.stack {
+  display: grid;
+  grid-template-columns: 1fr;
+  text-align: center;
+  position: relative;
+}
+
+.stack span {
+  line-height: normal;
+  font-weight: bold;
+  grid-row-start: 1;
+  grid-column-start: 1;
+  --stack-height: calc(100% / var(--stacks) - 1px);
+  --inverse-index: calc(calc(var(--stacks) - 1) - var(--index));
+  --clip-top: calc(var(--stack-height) * var(--index));
+  --clip-bottom: calc(var(--stack-height) * var(--inverse-index));
+  clip-path: inset(var(--clip-top) 0 var(--clip-bottom) 0);
+  animation: stack 340ms cubic-bezier(.46,.29,0,1.24) 1 backwards calc(var(--index) * 120ms), glitch 2s ease infinite 2s alternate-reverse;
+}
+
+.stack span:nth-child(odd) { --glitch-translate: 20px; }
+.stack span:nth-child(even) { --glitch-translate: -20px; }
+
+/* Mapbox and tattoo styles */
+.mapboxgl-ctrl-bottom-left {
+  display: none;
+}
+
+.tattoo_selected {
+  fill: rgba(255, 0, 0, 0.7) !important;
+}
+
+/* Gradient animation for popup and card */
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0turn;
+  inherits: false;
+}
+
+.popup, .card {
+  animation: 10s gradient-angle infinite linear;
+  border: 3px solid transparent;
+  background-color: #c7a03c;
+  background-image: linear-gradient(#584827, #2d230f),
+    conic-gradient(
+      from var(--gradient-angle),
+      #584827 0%,
+      #c7a03c 37%,
+      #f9de90 30%,
+      #c7a03c 33%,
+      #584827 40%,
+      #584827 50%,
+      #c7a03c 77%,
+      #f9de90 80%,
+      #c7a03c 83%,
+      #584827 90%
+    );
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+}
+
+.card img {
+  opacity: 1;
+}
+
+/* Hover animations */
+.jump-on-hover:hover {
+  animation: jump 0.3s ease-in-out;
+}
+
+.social-icon-hover:hover {
+  animation: bounce 0.5s ease-in-out, pulse 0.5s ease-in-out;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* Datepicker styles */
+.react-datepicker,
+.react-datepicker__month-container,
+.react-datepicker__header,
+.react-datepicker__day-names,
+.react-datepicker__week {
+  width: 100% !important;
+}
+
+.react-datepicker__day-names,
+.react-datepicker__week {
+  display: flex !important;
+  justify-content: space-between !important;
+}
+
+.react-datepicker__day {
+  flex: 1 !important;
+  margin: 0 !important;
+  text-align: center !important;
+}
+
+/* Animations */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+@keyframes jump {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes stack {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%);
+    text-shadow: -2px 3px 0 red, 2px -3px 0 blue;
+  }
+  60% {
+    opacity: 0.5;
+    transform: translateX(50%);
+  }
+  80% {
+    transform: none;
+    opacity: 1;
+    text-shadow: 2px -3px 0 red, -2px 3px 0 blue;
+  }
+  100% { text-shadow: none; }
+}
+
+@keyframes glitch {
+  0% {
+    text-shadow: -2px 3px 0 red, 2px -3px 0 blue;
+    transform: translate(var(--glitch-translate));
+  }
+  2% { text-shadow: 2px -3px 0 red, -2px 3px 0 blue; }
+  4%, 100% { text-shadow: none; transform: none; }
+}
+
+@keyframes gradient-angle {
+  to { --gradient-angle: 1turn; }
 }
