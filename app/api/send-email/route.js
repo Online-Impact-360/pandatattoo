@@ -1,3 +1,6 @@
+import { createFormSubmissionEntry } from "@/app/lib/createFormSubmission";
+import { sanitizeSubmission } from "@/app/lib/sanitize";
+import { SubmissionSchema } from "@/app/lib/validation";
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
@@ -6,22 +9,44 @@ export async function POST(req) {
     // Extract form fields
     const formData = await req.formData();
     const data = {};
+    let tattooImage = null;
 
-    formData.forEach((value, key) => {
-      if (key === "schedule") {
-        data[key] = value.split(", ").map((date) => new Date(date).toLocaleDateString());
-      } else if (key === "artistName") {
-        data["artist"] = { name: value };
+    for (const [key, value] of formData.entries()) {
+      if (key === "tattooImage") {
+        tattooImage = value; // Store file separately
+      } else if (key === "schedule") {
+        data.availableDates = value.split(", "); // Split into array for Contentful
+        data.schedule = value; // Keep as string for schedule field
       } else {
         data[key] = value;
       }
-    });
+    }
 
-    // Map bodyPositionImage to bodyPosition for email template
-    data.bodyPosition = data.bodyPositionImage || "Not provided";
+    // Validate and sanitize data
+    const validatedData = SubmissionSchema.parse(data);
+    const sanitizedData = sanitizeSubmission(validatedData);
 
-    // Handle file uploads
-    const tattooImage = formData.get("tattooImage");
+    // Create Contentful entry
+    const { id: entryId } = await createFormSubmissionEntry(sanitizedData, tattooImage);
+
+    // Map fields for email template, aligning with sanitizedData
+    const emailData = {
+      fullName: sanitizedData.fullName || "Not provided",
+      phoneNumber: sanitizedData.phoneNumber || "Not provided",
+      email: sanitizedData.email || "Not provided",
+      instagram: sanitizedData.instagram || "Not provided",
+      ageType: sanitizedData.ageType || "Not provided",
+      gender: sanitizedData.gender || "Not provided",
+      bodyPosition: sanitizedData.bodyPosition || sanitizedData.bodyPositionImage || "Not provided",
+      selectedPosition: sanitizedData.selectedPosition || "Not provided",
+      size: sanitizedData.size || "Not provided",
+      colorType: sanitizedData.colorType || "Not provided",
+      tattooDescription: sanitizedData.tattooDescription || "Not provided",
+      availableDates: sanitizedData.availableDates?.join(", ") || "Not provided",
+      schedule: sanitizedData.schedule || "Not provided",
+      miamiStatus: sanitizedData.miamiStatus || "Not provided",
+      artistId: sanitizedData.artistId ? "Selected (ID: " + sanitizedData.artistId + ")" : "Not selected",
+    };
 
     // Configure Nodemailer transporter
     const transporter = nodemailer.createTransport({
@@ -33,6 +58,30 @@ export async function POST(req) {
         pass: process.env.EMAIL_PASS,
       },
     });
+
+    // Verify transporter configuration
+    await transporter.verify().catch((error) => {
+      throw new Error(`Email transporter configuration error: ${error.message}`);
+    });
+
+    // Prepare attachment
+    let attachments = [];
+    if (tattooImage) {
+      try {
+        const arrayBuffer = await tattooImage.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+        attachments.push({
+          filename: tattooImage.name,
+          content: buffer,
+          contentType: tattooImage.type,
+        });
+      } catch (error) {
+        console.warn("Failed to prepare attachment, proceeding without it:", {
+          message: error.message,
+          stack: error.stack,
+        });
+      }
+    }
 
     // HTML email template
     const htmlContent = `
@@ -72,61 +121,65 @@ export async function POST(req) {
             <h2>Client Details</h2>
             <div class="field">
               <span class="field-label">Full Name:</span>
-              <span class="field-value">${data.fullName || "Not provided"}</span>
+              <span class="field-value">${emailData.fullName}</span>
             </div>
             <div class="field">
               <span class="field-label">Phone Number:</span>
-              <span class="field-value">${data.phoneNumber || "Not provided"}</span>
+              <span class="field-value">${emailData.phoneNumber}</span>
             </div>
             <div class="field">
               <span class="field-label">Email:</span>
-              <span class="field-value">${data.email || "Not provided"}</span>
+              <span class="field-value">${emailData.email}</span>
             </div>
             <div class="field">
               <span class="field-label">Instagram:</span>
-              <span class="field-value">${data.instagram || "Not provided"}</span>
+              <span class="field-value">${emailData.instagram}</span>
             </div>
             <div class="field">
-              <span class="field-label">Age:</span>
-              <span class="field-value">${data.age || "Not provided"}</span>
+              <span class="field-label">Age Type:</span>
+              <span class="field-value">${emailData.ageType}</span>
             </div>
             <div class="field">
               <span class="field-label">Gender:</span>
-              <span class="field-value">${data.gender || "Not provided"}</span>
+              <span class="field-value">${emailData.gender}</span>
             </div>
             <h2>Tattoo Details</h2>
             <div class="field">
               <span class="field-label">Body Position:</span>
-              <span class="field-value">${data.bodyPosition || "Not provided"}</span>
+              <span class="field-value">${emailData.bodyPosition}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Selected Position:</span>
+              <span class="field-value">${emailData.selectedPosition}</span>
             </div>
             <div class="field">
               <span class="field-label">Size:</span>
-              <span class="field-value">${data.size || "Not provided"}</span>
+              <span class="field-value">${emailData.size}</span>
             </div>
             <div class="field">
-              <span class="field-label">Color:</span>
-              <span class="field-value">${data.color || "Not provided"}</span>
+              <span class="field-label">Color Type:</span>
+              <span class="field-value">${emailData.colorType}</span>
             </div>
             <div class="field">
               <span class="field-label">Description:</span>
-              <span class="field-value">${data.tattooDescription || "Not provided"}</span>
+              <span class="field-value">${emailData.tattooDescription}</span>
             </div>
             <h2>Appointment Details</h2>
             <div class="field">
               <span class="field-label">Location:</span>
-              <span class="field-value">${data.location || "Not provided"}</span>
+              <span class="field-value">${emailData.miamiStatus}</span>
             </div>
             <div class="field">
               <span class="field-label">Preferred Dates:</span>
-              <span class="field-value">${data.schedule ? data.schedule.join(", ") : "Not specified"}</span>
+              <span class="field-value">${emailData.availableDates}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Schedule:</span>
+              <span class="field-value">${emailData.schedule}</span>
             </div>
             <div class="field">
               <span class="field-label">Artist:</span>
-              <span class="field-value">${data.artist ? data.artist.name : "Not selected"}</span>
-            </div>
-            <div class="field">
-              <span class="field-label">Schedule Type:</span>
-              <span class="field-value">${data.scheduleType || "Not provided"}</span>
+              <span class="field-value">${emailData.artistId}</span>
             </div>
             <div class="attachments">
               <h3>Attachments</h3>
@@ -135,7 +188,7 @@ export async function POST(req) {
           </div>
           <div class="footer">
             <p>Thank you for choosing Panda Tattoo!</p>
-            <p><a href="https://pandatattoo.com">Visit our website</a> | <a href="mailto:${process.env.RECIPIENT_EMAIL}">Contact Us</a></p>
+            <p><a href="https://pandatattoo.com">Visit our website</a> | <a href="mailto:${process.env.RECIPIENT_EMAIL || "yourshopemail@example.com"}">Contact Us</a></p>
           </div>
         </div>
       </body>
@@ -144,22 +197,20 @@ export async function POST(req) {
 
     // Email content
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: process.env.EMAIL_USER || "no-reply@pandatattoo.com",
       to: process.env.RECIPIENT_EMAIL || "yourshopemail@example.com",
       subject: "New Tattoo Booking Request",
       html: htmlContent,
-      attachments: [
-        tattooImage
-          ? { filename: tattooImage.name, content: Buffer.from(await tattooImage.arrayBuffer()) }
-          : null,
-      ].filter((attachment) => attachment !== null),
+      attachments,
     };
 
-    // Send email
-    await transporter.sendMail(mailOptions);
 
-    return NextResponse.json({ success: true, message: "Email sent successfully" }, { status: 200 });
+    await transporter.sendMail(mailOptions).catch((error) => {
+      throw new Error(`Failed to send email: ${error.message}`);
+    });
+
+    return NextResponse.json({ success: true, message: "Form submitted and email sent successfully", entryId }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ success: false, message: "Failed to send email" }, { status: 500 });
+    return NextResponse.json({ success: false, message: `Failed to process form submission: ${error.message}` }, { status: 500 });
   }
 }
