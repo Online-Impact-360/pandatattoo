@@ -2,7 +2,8 @@
 import { BLOCKS, INLINES } from "@contentful/rich-text-types";
 import Banner from "../../components/banner";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { useEffect, useParams, useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 
 export default function BlogPage() {
   const { slug } = useParams();
