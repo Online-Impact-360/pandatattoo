@@ -146,6 +146,7 @@ export default function Popup() {
         formDataToSend.append(key, value.map((date) => date.toLocaleDateString()).join(", "));
       } else if (key === "artist" && value) {
         formDataToSend.append("artistName", value.name);
+        formDataToSend.append("artistId", value.id)
         if (value.image && !value.image.startsWith("/")) {
           formDataToSend.append("artistImage", value.image);
         }
