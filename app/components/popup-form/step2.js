@@ -5,7 +5,7 @@ import MaleBackSVG from "./MaleBackSVG";
 import MaleFrontSVG from "./MaleFrontSVG";
 import { useEffect, useState } from "react";
 
-export default function Step2({ formData, handleChange, handleFileChange, onImageViewChange, onBodyPositionUpdate }) {
+export default function Step2({ formData, handleChange, handleFileChange, onImageViewChange, onBodyPositionUpdate, disabled }) {
   const [selectedGender, setSelectedGender] = useState(formData.gender || "");
   const [selectedSize, setSelectedSize] = useState(formData.size || "");
   const [selectedColor, setSelectedColor] = useState(formData.color || "");
@@ -15,6 +15,8 @@ export default function Step2({ formData, handleChange, handleFileChange, onImag
   }, [formData.gender]);
 
   const handleSpanClick = (name, value) => {
+    if (disabled) return;
+    
     switch (name) {
       case "gender":
         setSelectedGender(value);
@@ -38,6 +40,8 @@ export default function Step2({ formData, handleChange, handleFileChange, onImag
   };
 
   const handlePathClick = (className, isRemoval) => {
+    if (disabled) return;
+
     const currentPositions = formData.bodyPositionImage ? formData.bodyPositionImage.split(",").map((item) => item.trim()) : [];
     const updatedPositions = isRemoval
       ? currentPositions.filter((pos) => pos !== className)
@@ -82,6 +86,7 @@ export default function Step2({ formData, handleChange, handleFileChange, onImag
                     value="Male"
                     checked={formData.gender === "Male"}
                     onChange={handleChange}
+                    disabled={disabled}
                   />
                   <span
                     onClick={() => handleSpanClick("gender", "Male")}

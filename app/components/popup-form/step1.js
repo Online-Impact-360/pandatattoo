@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 
-export default function Step1({ formData, handleChange }) {
+export default function Step1({ formData, handleChange, disabled }) {
   const [selectedAge, setSelectedAge] = useState(formData.age || "");
 
   const handleSpanClick = (value) => {
@@ -25,7 +25,10 @@ export default function Step1({ formData, handleChange }) {
                 name="fullName"
                 value={formData.fullName}
                 onChange={handleChange}
-                className="w-full p-2 px-4 border border-solid border-[#e8e6e6] rounded-md text-black text-sm"
+                className={`w-full p-2 px-4 border border-solid border-[#e8e6e6] rounded-md text-black text-sm ${
+                  disabled ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
+                disabled={disabled}
                 required
               />
             </div>
@@ -40,7 +43,10 @@ export default function Step1({ formData, handleChange }) {
                 name="phoneNumber"
                 value={formData.phoneNumber}
                 onChange={handleChange}
-                className="w-full p-2 border border-solid border-[#e8e6e6] rounded-md text-black text-sm"
+                className={`w-full p-2 border border-solid border-[#e8e6e6] rounded-md text-black text-sm ${
+                  disabled ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
+                disabled={disabled}
                 required
               />
             </div>
@@ -55,7 +61,10 @@ export default function Step1({ formData, handleChange }) {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full p-2 border border-solid border-[#e8e6e6] rounded-md text-black text-sm"
+                className={`w-full p-2 border border-solid border-[#e8e6e6] rounded-md text-black text-sm ${
+                  disabled ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
+                disabled={disabled}
                 required
               />
             </div>
@@ -70,7 +79,10 @@ export default function Step1({ formData, handleChange }) {
                 name="instagram"
                 value={formData.instagram}
                 onChange={handleChange}
-                className="w-full p-2 border border-solid border-[#e8e6e6] rounded-md text-black text-sm"
+                className={`w-full p-2 border border-solid border-[#e8e6e6] rounded-md text-black text-sm ${
+                  disabled ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
+                disabled={disabled}
               />
             </div>
           </div>
@@ -87,6 +99,7 @@ export default function Step1({ formData, handleChange }) {
                   value="under18"
                   checked={formData.age === "under18"}
                   onChange={handleChange}
+                  disabled={disabled}
                   required
                 />
                 <span

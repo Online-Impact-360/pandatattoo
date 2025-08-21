@@ -33,6 +33,7 @@ export default function Popup() {
   const [submissionStatus, setSubmissionStatus] = useState(null);
   const [bodyPositionValue, setBodyPositionValue] = useState("");
   const [artists, setArtists] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Normalize URLs to ensure absolute URLs
   const normalizeImageUrl = (url) => {
@@ -140,6 +141,9 @@ export default function Popup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isSubmitting) return; // Prevent multiple submissions
+    
+    setIsSubmitting(true);
     const formDataToSend = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
       if (key === "schedule") {
@@ -193,6 +197,8 @@ export default function Popup() {
       }
     } catch (error) {
       setSubmissionStatus("error");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -363,7 +369,13 @@ export default function Popup() {
                   >
                     ✕
                   </button>
-                  {currentStep === 1 && <Step1 formData={formData} handleChange={handleChange} />}
+                  {currentStep === 1 && (
+                    <Step1 
+                      formData={formData} 
+                      handleChange={handleChange} 
+                      disabled={isSubmitting}
+                    />
+                  )}
                   {currentStep === 2 && (
                     <Step2
                       formData={formData}
@@ -371,6 +383,7 @@ export default function Popup() {
                       handleFileChange={handleFileChange}
                       onImageViewChange={handleStep2ImageViewChange}
                       onBodyPositionUpdate={handleBodyPositionUpdate}
+                      disabled={isSubmitting}
                     />
                   )}
                   {currentStep === 3 && (
@@ -379,6 +392,7 @@ export default function Popup() {
                       handleChange={handleChange}
                       handleDateSelect={handleDateSelect}
                       setFormData={setFormData}
+                      disabled={isSubmitting}
                     />
                   )}
                   <div className="mt-4 hidden">
@@ -409,7 +423,10 @@ export default function Popup() {
                       <button
                         type="button"
                         onClick={() => setCurrentStep(2)}
-                        className="w-full text-sm font-bold bg-[#ff4901] text-white text-xs py-3 rounded mt-6 hover:bg-[#f46932]"
+                        disabled={isSubmitting}
+                        className={`w-full text-xs font-bold bg-[#ff4901] text-white py-3 rounded mt-6 ${
+                          isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#f46932]'
+                        }`}
                       >
                         NEXT
                       </button>
@@ -421,14 +438,20 @@ export default function Popup() {
                             <button
                               type="button"
                               onClick={() => setCurrentStep(1)}
-                              className="w-1/2 bg-gray-300 text-black text-xs font-bold py-3 rounded hover:bg-gray-400"
+                              disabled={isSubmitting}
+                              className={`w-1/2 bg-gray-300 text-black text-xs font-bold py-3 rounded ${
+                                isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-400'
+                              }`}
                             >
                               BACK
                             </button>
                             <button
                               type="button"
                               onClick={() => setCurrentStep(3)}
-                              className="w-1/2 bg-[#ff4901] text-white text-xs font-bold py-3 rounded hover:bg-[#f46932]"
+                              disabled={isSubmitting}
+                              className={`w-1/2 bg-[#ff4901] text-white text-xs font-bold py-3 rounded ${
+                                isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#f46932]'
+                              }`}
                             >
                               NEXT
                             </button>
@@ -438,14 +461,20 @@ export default function Popup() {
                             <button
                               type="button"
                               onClick={handleReturnToForm}
-                              className="w-1/2 bg-gray-300 text-black text-xs font-bold py-3 px-4 rounded hover:bg-gray-400"
+                              disabled={isSubmitting}
+                              className={`w-1/2 bg-gray-300 text-black text-xs font-bold py-3 px-4 rounded ${
+                                isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-400'
+                              }`}
                             >
                               RETURN TO FORM
                             </button>
                             <button
                               type="button"
                               onClick={handleTogglePosition}
-                              className="w-1/2 bg-[#ff4901] text-white text-xs font-bold py-3 px-4 rounded hover:bg-[#f46932] uppercase"
+                              disabled={isSubmitting}
+                              className={`w-1/2 bg-[#ff4901] text-white text-xs font-bold py-3 px-4 rounded uppercase ${
+                                isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#f46932]'
+                              }`}
                             >
                               {formData.selectedPosition + " SIDE"}
                             </button>
@@ -458,15 +487,21 @@ export default function Popup() {
                         <button
                           type="button"
                           onClick={() => setCurrentStep(2)}
-                          className="w-1/2 bg-gray-300 text-black text-xs font-bold py-3 rounded hover:bg-gray-400"
+                          disabled={isSubmitting}
+                          className={`w-1/2 bg-gray-300 text-black text-xs font-bold py-3 rounded ${
+                            isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-400'
+                          }`}
                         >
                           BACK
                         </button>
                         <button
                           type="submit"
-                          className="w-1/2 bg-black text-white text-xs font-bold py-3 rounded hover:bg-gray-800"
+                          disabled={isSubmitting}
+                          className={`w-1/2 bg-black text-white text-xs font-bold py-3 rounded ${
+                            isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-800'
+                          }`}
                         >
-                          SEND REQUEST
+                          {isSubmitting ? 'SENDING...' : 'SEND REQUEST'}
                         </button>
                       </div>
                     )}

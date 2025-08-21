@@ -3,12 +3,14 @@ import DatePicker from "react-datepicker";
 import { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default function Step3({ formData, handleChange, handleDateSelect, setFormData }) {
+export default function Step3({ formData, handleChange, handleDateSelect, setFormData, disabled }) {
   const [selectedLocation, setSelectedLocation] = useState(formData.location || "");
   const [selectedScheduleType, setSelectedScheduleType] = useState(formData.scheduleType || "");
 
   // Handle click on the span to trigger radio button selection
   const handleSpanClick = (name, value) => {
+    if (disabled) return;
+    
     switch (name) {
       case "location":
         setSelectedLocation(value);
@@ -49,6 +51,7 @@ export default function Step3({ formData, handleChange, handleDateSelect, setFor
                       highlightDates={formData.schedule}
                       minDate={new Date()}
                       className="w-full"
+                      disabled={disabled}
                       dayClassName={(date) =>
                         formData.schedule.some((selectedDate) => selectedDate.toDateString() === date.toDateString())
                           ? "bg-[#ff4901] text-white"
@@ -62,7 +65,8 @@ export default function Step3({ formData, handleChange, handleDateSelect, setFor
                 <button
                   type="button"
                   onClick={() => setFormData({ ...formData, schedule: [] })}
-                  className="mt-2 text-sm text-[#ff4901] hover:text-[#f46932]"
+                  className={`mt-2 text-sm text-[#ff4901] ${disabled ? 'opacity-50 cursor-not-allowed' : 'hover:text-[#f46932]'}`}
+                  disabled={disabled}
                 >
                   Clear Dates
                 </button>
@@ -79,6 +83,7 @@ export default function Step3({ formData, handleChange, handleDateSelect, setFor
                   value="Live Miami"
                   checked={formData.location === "Live Miami"}
                   onChange={handleChange}
+                  disabled={disabled}
                   required
                 />
                 <span
