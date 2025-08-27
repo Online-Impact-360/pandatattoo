@@ -68,7 +68,8 @@ export default function Artists({ isActive }) {
 
   const handleArtistClick = (name) => {
     if (name === "Panda Tattoo") {
-      openPopup({ artist: null });
+      return;
+      // openPopup({ artist: null });
     } else {
       const artist = artistsList.find((artist) => artist.name === name);
       if (artist) openPopup({ artist });
