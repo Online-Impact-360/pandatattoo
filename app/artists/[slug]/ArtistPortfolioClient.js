@@ -19,14 +19,14 @@ export default function ArtistPortfolioClient({ artist, columns, rows }) {
       <section className="mb-20">
         <div className="flex border-b-2 p-5 text-[#AEB4B2]">
           <div className="flex w-3/5">
-            <div className="flex flex-col justify-center w-full">
+            <h1 className="flex flex-col justify-center w-full">
               <span className="block text-xs md:text-sm w-full text-left text-white align-top text-nowrap">
                 ( ARTIST )
               </span>
               <span className="block text-md md:text-xl lg:text-4xl w-full xl:text-6xl xl:pl-5 xl:w-4/5 text-left text-white font-bold uppercase">
                 {artist.name}
               </span>
-            </div>
+            </h1>
             <div className="flex-col justify-center w-full hidden sm:flex xl:p-5 text-xs md:text-sm lg:text-lg">
               <p className="font-bold uppercase text-white">( PORTFOLIO )</p>
               <p className="text-white">2018-CURRENT</p>

@@ -28,7 +28,7 @@ export default function Banner({ header }) {
 
   return (
     <div className="relative z-0 rounded-b-[50px] shadow-2xl shadow-[0_25px_60px_15px_rgba(225,225,225,0.9)] transition-shadow duration-300 hover:shadow-[0_10px_20px_15px_rgba(255,255,255,0.3)]">
-      <div className="relative transition-all duration-700 h-[60vh] md:h-[60vh] hover:md:h-[70vh] w-full overflow-hidden rounded-b-[50px]">
+      <h1 className="relative transition-all duration-700 h-[60vh] md:h-[60vh] hover:md:h-[70vh] w-full overflow-hidden rounded-b-[50px]">
         {header.length <= 6 ? (
           <>
             <div className="absolute top-[30%] left-[-20%] font-bold text-white z-10 text-4xl md:text-4xl lg:text-6xl xl:text-9xl transform translate-x-1/2">
@@ -60,7 +60,7 @@ export default function Banner({ header }) {
             }}
           ></div>
         </div>
-      </div>
+      </h1>
     </div>
   );
 }

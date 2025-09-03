@@ -140,7 +140,7 @@ export default function Welcome({ isActive }) {
             className="absolute inset-0 z-[1] pl-2 pr-2 md:pl-20 md:pr-20 flex flex-col justify-between text-white opacity-10 pointer-events-none"
             style={{ height: "200%", top: "0" }}
           >
-            <div className="flex justify-between py-10 px-1 md:px-4 text-sm text-center">
+            <h2 className="flex justify-between py-10 px-1 md:px-4 text-sm text-center">
               <span className="w-full floating-animation text-xs lg:text-lg px-2">
                 WE KNOW BODY ART
               </span>
@@ -150,7 +150,7 @@ export default function Welcome({ isActive }) {
               <span className="w-full floating-animation text-xs lg:text-lg px-2">
                 MIAMI, FLORIDA | © 2024
               </span>
-            </div>
+            </h2>
           </div>
           <div
             ref={containerRef}
@@ -158,7 +158,7 @@ export default function Welcome({ isActive }) {
             style={{ left: "50%", transform: "translateX(-50%)" }}
           >
             <div ref={contentRef} className="w-full flex flex-col items-center">
-              <div className="mt-0 stack text-white text-4xl md:text-8xl font-bold" style={{ "--stacks": "3" }}>
+              <h3 className="mt-0 stack text-white text-4xl md:text-8xl font-bold" style={{ "--stacks": "3" }}>
                 {[...Array(3)].map((_, i) => (
                   <span
                     className="text-4xl md:text-8xl"
@@ -169,7 +169,7 @@ export default function Welcome({ isActive }) {
                     }}
                   />
                 ))}
-              </div>
+              </h3>
               {contentfulData?.image?.fields?.file?.url ? (
                 <div className="relative text-center">
                   <img

@@ -29,6 +29,7 @@ export async function GET(req) {
       query["fields.slug"] = slug;
     }
 
+    console.log(query)
     // Fetch filtered entries
     const entries = await client.getEntries(query);
 

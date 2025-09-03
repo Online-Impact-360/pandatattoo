@@ -93,14 +93,14 @@ export default function AboutPage() {
                 </div>
               </div>
               <div className="flex flex-col md:flex-row p-5 lg:py-10 lg:px-20">
-                <div className="flex w-full md:w-1/2 py-10 md:px-5 rounded-[20px]">
+                <h3 className="flex w-full md:w-1/2 py-10 md:px-5 rounded-[20px]">
                   <div className="mr-5 text-white">
                     {aboutData?.firstBlockSetTitle || "[01]"}
                   </div>
                   <div className="text-xl font-bold text-white">
                     {renderText(aboutData?.firstBlockSet)}
                   </div>
-                </div>
+                </h3>
                 <div className="flex w-full md:w-1/2 pb-10 md:py-10 md:px-5 rounded-[20px]">
                   <div className="mr-5 text-white">
                     {aboutData?.secondBlockSetTitle || "[02]"}

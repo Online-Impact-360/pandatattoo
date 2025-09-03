@@ -63,9 +63,9 @@ export default function ArtistsPage() {
                 className="w-[100%] h-[400px] md:h-[600px] object-cover m-auto transition-transform duration-700 group-hover:scale-125"
               />
               {/* Artist Name */}
-              <div className="absolute p-10 bottom-0 w-full bg-opacity-60 text-white text-center py-2 uppercase font-extrabold text-2xl lg:text-lg xl:text-xl">
+              <h3 className="absolute p-10 bottom-0 w-full bg-opacity-60 text-white text-center py-2 uppercase font-extrabold text-2xl lg:text-lg xl:text-xl">
                 <span className="hidden xl:inline">Artist •</span> {artist.name}
-              </div>
+              </h3>
             </a>
           </div>
         ))}

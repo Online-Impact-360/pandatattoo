@@ -46,7 +46,7 @@ export default function Piercings({ isOpen, onToggle }) {
     <div className="rounded-md transparent">
       <div className="relative flex flex-col mb-[-10%] pb-[15%] text text-center rounded-tr-[50px] rounded-tl-[50px] bg-black shadow-2xl shadow-[0_25px_60px_15px_rgba(225,225,225,0.7)] transition-shadow duration-300 hover:shadow-[0px_0px_25px_rgba(255,255,255,0.3)]">
         {/* Header with click handler */}
-        <h2
+        <h3
           className="flex p-10 mb-10 cursor-pointer jump-on-hover transition-transform duration-200"
           onClick={onToggle}
         >
@@ -54,7 +54,7 @@ export default function Piercings({ isOpen, onToggle }) {
             PIERCINGS
           </span>
           <span className="text-xs ml-5 text-white">[ 03 ]</span>
-        </h2>
+        </h3>
 
         {/* Content with animation */}
         <div

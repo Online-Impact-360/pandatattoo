@@ -52,6 +52,7 @@ export default function Hero() {
 
   return (
     <div className="hero relative z-0">
+      <h1 className="hidden" >Panda Tattoo – Miami’s Premier Fine Line & Realism Studio</h1>
       <div className="hero-container relative h-screen w-full">
         <div className="absolute inset-0 z-0">
           <Image src="/hero.jpg" alt="Hero Background" layout="fill" objectFit="cover" priority />
