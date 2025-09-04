@@ -91,7 +91,7 @@ export async function generateMetadata({ params }) {
       siteName: "Panda Tattoo",
       images: [
         {
-          url: "/logo.png",
+          url: "/panda-logo-black.png",
           width: 1200,
           height: 630,
           alt: "Panda Tattoo – Fine Line & Realism Tattoo Studio in Miami, FL",
@@ -105,7 +105,7 @@ export async function generateMetadata({ params }) {
       title: "Panda Tattoo – Fine Line & Realism Tattoo Studio in Miami, FL",
       description:
         "Panda Tattoo in Miami, FL offers award-winning fine-line, realism, and piercing services. Established artists deliver custom, high-definition tattoos in a welcoming studio—book your appointment today!",
-      images: ["/logo.png"],
+      images: ["/panda-logo-black.png"],
     },
     other: {
       keywords:
@@ -120,7 +120,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/favicon/favicon-16x16.png" />
+        <link rel="icon" href="/panda-logo-black.png" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#090d11]`}
