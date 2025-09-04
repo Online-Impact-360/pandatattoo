@@ -15,20 +15,34 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+
 export async function generateMetadata({ params }) {
   try{
-    const res = await fetch(`${process.env.SITE_URL}/api/contentful?content_type=seo`);
+    const res = await fetch(
+      `https://cdn.contentful.com/spaces/${process.env.CONTENTFUL_SPACE_ID}/environments/${process.env.CONTENTFULL_ENVIRONMENT_ID}/entries?content_type=seo`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.CONTENTFUL_ACCESS_TOKEN}`,
+        },
+        next: { revalidate: 60 }, // optional caching
+      }
+    );
+
 
     if(!res.ok){
       throw new Error("Failed to fetch SEO data");
     }
 
     const data = await res.json();
-    console.log(data.items[0].fields)
 
     const post = data.items[0].fields;
     
     return {
+      metadataBase: new URL(
+        process.env.NODE_ENV === "production"
+          ? "https://pandatattoo.com"
+          : "http://localhost:3000"
+      ),
     title: post.title,
     description: post.description,
     keywords: post.keywords,
@@ -59,6 +73,11 @@ export async function generateMetadata({ params }) {
   console.error("Error fetching SEO data:", error);
   // Fallback SEO metadata
   return {
+    metadataBase: new URL(
+      process.env.NODE_ENV === "production"
+        ? "https://pandatattoo.com"
+        : "http://localhost:3000"
+    ),
     title: "Panda Tattoo – Fine Line & Realism Tattoo Studio in Miami, FL",
     description:
       "Panda Tattoo in Miami, FL offers award-winning fine-line, realism, and piercing services. Established artists deliver custom, high-definition tattoos in a welcoming studio—book your appointment today!",

@@ -1,14 +1,29 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
+// eslint.config.mjs
+import next from "@next/eslint-plugin-next";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+/** @type {import("eslint").Linter.FlatConfig[]} */
+export default [
+  // ignore build artifacts
+  { ignores: ["node_modules", ".next", "out"] },
 
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
+  {
+    files: ["**/*.{js,jsx}"],
 
-const eslintConfig = [...compat.extends("next/core-web-vitals")];
+    // ⬇️ This is the key bit that fixes "Unexpected token <"
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
+      parserOptions: {
+        ecmaFeatures: { jsx: true },
+      },
+    },
 
-export default eslintConfig;
+    plugins: {
+      "@next/next": next,
+    },
+
+    rules: {
+      ...next.configs["core-web-vitals"].rules,
+    },
+  },
+];
