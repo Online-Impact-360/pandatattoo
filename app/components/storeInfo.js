@@ -2,6 +2,7 @@
 import Map, { Marker } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
 import ActionButtons from "./actionButtons";
+import { usePopup } from "@/context/popupContext";
 import { useEffect, useState } from "react";
 
 export default function StoreInfo() {
