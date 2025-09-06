@@ -3,6 +3,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef, useState } from "react";
 import "../../globals.css";
+import ActionButtons from "../actionButtons";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -152,6 +153,7 @@ export default function Welcome({ isActive }) {
               </span>
             </h2>
           </div>
+
           <div
             ref={containerRef}
             className="absolute w-full flex flex-col items-center"
@@ -184,6 +186,11 @@ export default function Welcome({ isActive }) {
                 </div>
               )}
             </div>
+          </div>
+
+          {/* Action Buttons at bottom of region */}
+          <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20">
+            <ActionButtons variant="home" />
           </div>
         </div>
       </div>

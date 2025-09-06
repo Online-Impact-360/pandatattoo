@@ -1,7 +1,7 @@
 "use client";
 import Map, { Marker } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { usePopup } from "@/context/popupContext";
+import ActionButtons from "./actionButtons";
 import { useEffect, useState } from "react";
 
 export default function StoreInfo() {
@@ -86,14 +86,7 @@ export default function StoreInfo() {
             <p>{storeData.hours}</p>
           </div>
         </div>
-        <div className="w-3/4 sm:w-2/4 md:w-2/3 mb-5">
-          <button
-            onClick={() => openPopup()}
-            className="w-full p-3 bg-white text-black rounded-md font-bold"
-          >
-            BOOK NOW
-          </button>
-        </div>
+        <ActionButtons variant="store" />
       </div>
       <div className="block w-full md:w-3/5 bg-white rounded-[30px] overflow-hidden">
         <a href={mapUrl} target="_blank" rel="noopener noreferrer">

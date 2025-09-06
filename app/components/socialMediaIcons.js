@@ -34,10 +34,10 @@ export default function SocialMediaIcons({ variant }) {
   }, []);
 
   const holderClasses = "w-full lg:w-3/4";
-  const baseClasses = "rounded-md hover:text-[#ff4901] social-icon-hover transition-colors duration-300";
+  const baseClasses = "rounded-md hover:text-[#ff4901] transition-colors duration-200 ease-out";
   const headerClasses = "p-4 bg-black text-white my-2 lg:mx-2 hidden lg:block";
-  const footerClasses = "block bg-gray-700 text-gray-200 w-full p-8 my-5 mx-auto";
-  const footerSVG = "w-10 h-10 m-auto";
+  const footerClasses = "block bg-gray-700 text-gray-200 w-full p-4 md:p-8 my-2 md:my-5 mx-auto transform-gpu";
+  const footerSVG = "w-6 h-6 md:w-10 md:h-10 m-auto";
   const headerFooterSVG = "w-6 h-6 m-auto";
 
   if (isLoading) return <div>Loading social media links...</div>;
@@ -45,10 +45,11 @@ export default function SocialMediaIcons({ variant }) {
   return (
     <div
       className={`${
-        variant === "footer" ? `${holderClasses} grid grid-cols-2 gap-4` : "flex lg:flex-row flex-col z-50"
+        variant === "footer" ? `${holderClasses} flex flex-row md:grid md:grid-cols-2 gap-1 md:gap-4 justify-center will-change-scroll` : "flex lg:flex-row flex-col z-50"
       }`}
+      style={{ WebkitOverflowScrolling: 'touch' }}
     >
-      <div className={`${variant === "header" ? "" : "px-4 md:px-8"}`}>
+      <div className={`${variant === "header" ? "" : "px-1 md:px-4"}`}>
         <Link
           href={socialMediaLinks.instagram}
           target="_blank"
@@ -69,7 +70,7 @@ export default function SocialMediaIcons({ variant }) {
           </svg>
         </Link>
       </div>
-      <div className={`${variant === "header" ? "" : "px-4 md:px-8"}`}>
+      <div className={`${variant === "header" ? "" : "px-1 md:px-4"}`}>
         <Link
           href={socialMediaLinks.facebook}
           target="_blank"
@@ -88,7 +89,7 @@ export default function SocialMediaIcons({ variant }) {
           </svg>
         </Link>
       </div>
-      <div className={`${variant === "header" ? "" : "px-4 md:px-8"}`}>
+      <div className={`${variant === "header" ? "" : "px-1 md:px-4"}`}>
         <Link
           href={socialMediaLinks.youtube}
           target="_blank"
@@ -108,7 +109,7 @@ export default function SocialMediaIcons({ variant }) {
           </svg>
         </Link>
       </div>
-      <div className={`${variant === "header" ? "" : "px-4 md:px-8"}`}>
+      <div className={`${variant === "header" ? "" : "px-1 md:px-4"}`}>
         <Link
           href={socialMediaLinks.tiktok}
           target="_blank"

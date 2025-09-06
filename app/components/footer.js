@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import SocialMediaIcons from "./socialMediaIcons";
+import ActionButtons from "./actionButtons";
 import { usePopup } from "@/context/popupContext";
 
 export default function Footer() {
@@ -109,27 +110,7 @@ export default function Footer() {
               </ul>
             </div>
           </div>
-          <div
-            className="w-full md:w-1/3 flex justify-center items-center"
-            style={{
-              backgroundImage: `
-                radial-gradient(circle, white 10px, transparent 11px),
-                radial-gradient(circle, white 10px, transparent 11px),
-                radial-gradient(circle, white 10px, transparent 11px),
-                radial-gradient(circle, white 10px, transparent 11px)
-              `,
-              backgroundSize: "10px 10px",
-              backgroundPosition: "top left, top right, bottom left, bottom right",
-              backgroundRepeat: "no-repeat",
-            }}
-          >
-            <button
-              onClick={() => openPopup()}
-              className="text-3xl bg-[#FF4901] hover:bg-[#ff6701] text-[#FFFFFF] px-10 py-5 rounded-md uppercase font-bold border-none"
-            >
-              Book · Now
-            </button>
-          </div>
+          <ActionButtons variant="footer" />
           <div className="w-full md:w-1/3 flex justify-center items-center">
             <SocialMediaIcons variant="footer" />
           </div>

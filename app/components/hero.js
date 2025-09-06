@@ -1,7 +1,7 @@
 "use client";
-import Clock from "./clock";
 import Image from "next/image";
 import Parallax from "parallax-js";
+import ActionButtons from "./actionButtons";
 import { useEffect, useRef, useState } from "react";
 
 export default function Hero() {
@@ -68,7 +68,12 @@ export default function Hero() {
             }}
           ></div>
         </div>
-        <Clock />
+        
+        {/* Action Buttons in Center */}
+        <div className="absolute inset-0 z-30 flex items-center justify-center pointer-events-auto">
+          <ActionButtons variant="home" />
+        </div>
+        
         <div
           ref={sceneRef1}
           className="absolute bottom-20 md:bottom-14 left-0 md:left-20 z-20 px-4 py-4 text-white text-sm md:text-lg text-left"
@@ -85,7 +90,7 @@ export default function Hero() {
         </div>
         <div
           ref={sceneRef3}
-          className="absolute w-full top-[80%] lg:top-[60%] text-left z-20 text-white text-sm md:text-lg -translate-y-1/2 overflow-hidden"
+          className="absolute w-full top-[80%] lg:top-[60%] text-left z-20 text-white text-xl md:text-4xl font-bold -translate-y-1/2 overflow-hidden"
         >
           <div data-depth="0.2" className="ml-[10%] lg:ml-[20%]">
             {currentTime}
@@ -93,7 +98,7 @@ export default function Hero() {
         </div>
         <div
           ref={sceneRef4}
-          className="absolute w-full top-[80%] lg:top-[60%] text-right z-20 text-white text-sm md:text-lg -translate-y-1/2 overflow-hidden"
+          className="absolute w-full top-[80%] lg:top-[60%] text-right z-20 text-white text-xl md:text-4xl font-bold -translate-y-1/2 overflow-hidden"
         >
           <div data-depth="0.2" className="mr-[10%] lg:mr-[20%]">
             STUDIO: <span className={isOpen ? "text-green-500" : "text-red-500"}>{studioStatus}</span>

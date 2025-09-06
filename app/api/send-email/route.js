@@ -188,7 +188,7 @@ export async function POST(req) {
           </div>
           <div class="footer">
             <p>Thank you for choosing Panda Tattoo!</p>
-            <p><a href="https://pandatattoo.com">Visit our website</a> | <a href="mailto:${process.env.RECIPIENT_EMAIL || "yourshopemail@example.com"}">Contact Us</a></p>
+            <p><a href="https://pandatattoo.com">Visit our website</a> | <a href="mailto:${process.env.RECIPIENT_EMAIL || "bookings@tattoopanda.com"}">Contact Us</a></p>
           </div>
         </div>
       </body>
@@ -198,7 +198,7 @@ export async function POST(req) {
     // Email content
     const mailOptions = {
       from: process.env.EMAIL_USER || "no-reply@pandatattoo.com",
-      to: process.env.RECIPIENT_EMAIL || "yourshopemail@example.com",
+      to: process.env.RECIPIENT_EMAIL || "bookings@tattoopanda.com",
       subject: "New Tattoo Booking Request",
       html: htmlContent,
       attachments,
