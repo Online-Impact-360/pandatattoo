@@ -50,40 +50,42 @@ export default function Step0({ formData, handleChange, disabled }) {
           <h4 className="text-black text-md font-semibold uppercase">SELECT ALL THAT APPLY</h4>
         </div>
 
-        <div className="grid grid-cols-3 gap-2 mb-6">
-          {tattooStyles.map((style) => (
-            <div
-              key={style.id}
-              className={`relative border-2 rounded-lg overflow-hidden cursor-pointer transition-all duration-200 ${
-                selectedStyles.includes(style.id)
-                  ? 'border-[#ff4901] ring-2 ring-[#ff4901] ring-opacity-50'
-                  : 'border-gray-300 hover:border-gray-400'
-              } ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
-              onClick={() => !disabled && handleStyleToggle(style.id)}
-            >
-              <div className="aspect-[4/3] relative">
-                <Image
-                  src={style.image}
-                  alt={style.name}
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-200" />
-                <div className="absolute top-2 right-2">
-                  <input
-                    type="checkbox"
-                    checked={selectedStyles.includes(style.id)}
-                    onChange={() => {}} // Handled by onClick
-                    className="w-4 h-4 text-[#ff4901] bg-gray-100 border-gray-300 rounded focus:ring-[#ff4901] focus:ring-2"
-                    disabled={disabled}
+        <div className="max-w-md mx-auto">
+          <div className="grid grid-cols-3 gap-2 mb-6">
+            {tattooStyles.map((style) => (
+              <div
+                key={style.id}
+                className={`relative border-2 rounded-lg overflow-hidden cursor-pointer transition-all duration-200 ${
+                  selectedStyles.includes(style.id)
+                    ? 'border-[#ff4901] ring-2 ring-[#ff4901] ring-opacity-50'
+                    : 'border-gray-300 hover:border-gray-400'
+                } ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+                onClick={() => !disabled && handleStyleToggle(style.id)}
+              >
+                <div className="aspect-[4/3] relative">
+                  <Image
+                    src={style.image}
+                    alt={style.name}
+                    fill
+                    className="object-cover"
                   />
+                  <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-200" />
+                  <div className="absolute top-2 right-2">
+                    <input
+                      type="checkbox"
+                      checked={selectedStyles.includes(style.id)}
+                      onChange={() => {}} // Handled by onClick
+                      className="w-4 h-4 text-[#ff4901] bg-gray-100 border-gray-300 rounded focus:ring-[#ff4901] focus:ring-2"
+                      disabled={disabled}
+                    />
+                  </div>
+                </div>
+                <div className="p-2 bg-white">
+                  <p className="text-xs text-center text-black font-medium">{style.name}</p>
                 </div>
               </div>
-              <div className="p-2 bg-white">
-                <p className="text-xs text-center text-black font-medium">{style.name}</p>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         <div className="flex items-center justify-center">

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 
-export default function Step1({ formData, handleChange, disabled }) {
+export default function Step1({ formData, handleChange, disabled, artists, selectedArtist, setIsArtistPopupOpen, handleArtistSelect }) {
   const [selectedAge, setSelectedAge] = useState(formData.age || "");
 
   const handleSpanClick = (value) => {
@@ -71,15 +71,16 @@ export default function Step1({ formData, handleChange, disabled }) {
           </div>
           <div>
             <div className="relative mb-[-10px] px-3 z-10">
-              <span className="px-2 bg-white text-[11px] text-[#8c8c8c]">Instagram @</span>
+              <span className="px-2 bg-white text-[11px] text-[#8c8c8c]">Preferred Artist</span>
             </div>
             <div className="relative z-0">
               <input
                 type="text"
-                name="instagram"
-                value={formData.instagram}
-                onChange={handleChange}
-                className={`w-full p-2 border border-solid border-[#e8e6e6] rounded-md text-black text-sm ${
+                value={selectedArtist ? selectedArtist.name : ""}
+                readOnly
+                onClick={() => !disabled && setIsArtistPopupOpen(true)}
+                placeholder="Select preferred artist (optional)"
+                className={`w-full p-2 px-4 border border-solid border-[#e8e6e6] rounded-md text-black text-sm cursor-pointer ${
                   disabled ? 'opacity-50 cursor-not-allowed' : ''
                 }`}
                 disabled={disabled}

@@ -260,13 +260,13 @@ export default function Popup() {
       )}
       {!submissionStatus && (
         <section
-          className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] md:w-[900px] h-auto md:max-h-[95%] bg-white rounded-[20px] z-[999] transition-transform duration-300 ease-in-out shadow-2xl shadow-[0_5px_20px_0px_rgba(225,225,225,0.3)]"
+          className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] md:w-[900px] h-[700px] md:max-h-[95%] bg-white rounded-[20px] z-[999] transition-transform duration-300 ease-in-out shadow-2xl shadow-[0_5px_20px_0px_rgba(225,225,225,0.3)]"
         >
           <div className={`flex flex-col md:flex-row h-full max-h-[700px] md:items-stretch ${currentStep > 1 ? "" : "max-md:h-[700px]"}`}>
             <div className="popup flex flex-col md:flex-row h-full w-full max-h-[700px] md:items-stretch overflow-hidden rounded-[20px]">
               <div
                 className={`flex flex-col w-full h-2/5 bg-white md:h-auto md:w-1/2 border-r border-[#E9E9E9] md:p-0 ${
-                  currentStep > 1 ? "hidden md:block" : "block"
+                  currentStep === 0 ? "hidden" : currentStep > 1 ? "hidden md:block" : "block"
                 }`}
               >
                 {selectedArtist ? (
@@ -368,7 +368,7 @@ export default function Popup() {
                   </div>
                 )}
               </div>
-              <div className="w-full h-3/5 md:h-auto md:w-1/2 p-6 bg-white">
+              <div className={`w-full h-full ${currentStep === 0 ? 'md:w-full' : 'md:h-auto md:w-1/2'} p-6 bg-white`}>
                 <form onSubmit={handleSubmit} className="flex flex-col min-h-full overflow-y-auto">
                   <button
                     onClick={closePopup}
@@ -388,6 +388,10 @@ export default function Popup() {
                       formData={formData} 
                       handleChange={handleChange} 
                       disabled={isSubmitting}
+                      artists={artists}
+                      selectedArtist={selectedArtist}
+                      setIsArtistPopupOpen={setIsArtistPopupOpen}
+                      handleArtistSelect={handleArtistSelect}
                     />
                   )}
                   {currentStep === 2 && (
@@ -438,7 +442,7 @@ export default function Popup() {
                         type="button"
                         onClick={() => setCurrentStep(1)}
                         disabled={isSubmitting}
-                        className={`w-full text-xs font-bold bg-[#ff4901] text-white py-3 rounded mt-6 ${
+                        className={`w-auto px-8 mx-auto block text-xs font-bold bg-[#ff4901] text-white py-3 rounded mt-4 ${
                           isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#f46932]'
                         }`}
                       >
