@@ -19,6 +19,8 @@ const F = {
   submissionDate: "submissionDate",
   tattooImage: "tattooImage",
   artistName: "artistName",
+  selectedTattooStyles: "selectedTattooStyles",
+  somethingDifferent: "somethingDifferent",
 };
 
 export async function createFormSubmissionEntry(data, tattooImage) {
@@ -49,6 +51,8 @@ export async function createFormSubmissionEntry(data, tattooImage) {
         [LOCALE]: { sys: { type: "Link", linkType: "Entry", id: data.artistId } },
       };
     }
+    if (data.selectedTattooStyles) fields[F.selectedTattooStyles] = { [LOCALE]: data.selectedTattooStyles.join(", ") };
+    if (data.somethingDifferent !== undefined) fields[F.somethingDifferent] = { [LOCALE]: data.somethingDifferent };
 
     // Handle tattooImage upload
     if (tattooImage) {

@@ -23,6 +23,8 @@ export const SubmissionSchema = z.object({
   scheduleType: z.string().trim().optional(), // Handle separately
   artistId: z.string().trim().optional(), // Maps to artistName in Contentful
   tattooImage: z.any().optional(), // Handled separately as a File
+  selectedTattooStyles: z.array(z.string()).optional(),
+  somethingDifferent: z.boolean().optional(),
 }).transform((data) => ({
   ...data,
   ageType: data.age || data.ageType, // Prefer age if provided

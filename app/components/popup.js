@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Step0 from "./popup-form/step0";
 import Step1 from "./popup-form/step1";
 import Step2 from "./popup-form/step2";
 import Step3 from "./popup-form/step3";
@@ -8,7 +9,7 @@ import { usePopup } from "@/context/popupContext";
 
 export default function Popup() {
   const { isOpen, closePopup, popupData } = usePopup();
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState({
     fullName: "",
     phoneNumber: "",
@@ -27,6 +28,8 @@ export default function Popup() {
     artist: null,
     isImageView: false,
     selectedPosition: "front",
+    selectedTattooStyles: [],
+    somethingDifferent: false,
   });
   const [isArtistPopupOpen, setIsArtistPopupOpen] = useState(false);
   const [selectedArtist, setSelectedArtist] = useState(null);
@@ -81,7 +84,7 @@ export default function Popup() {
         artist: null,
         isImageView: false,
       }));
-      setCurrentStep(1);
+      setCurrentStep(0);
       setIsArtistPopupOpen(false);
       setSubmissionStatus(null);
       setBodyPositionValue("");
@@ -148,6 +151,8 @@ export default function Popup() {
     Object.entries(formData).forEach(([key, value]) => {
       if (key === "schedule") {
         formDataToSend.append(key, value.map((date) => date.toLocaleDateString()).join(", "));
+      } else if (key === "selectedTattooStyles") {
+        formDataToSend.append(key, Array.isArray(value) ? value.join(", ") : value);
       } else if (key === "artist" && value) {
         formDataToSend.append("artistName", value.name);
         formDataToSend.append("artistId", value.id)
@@ -169,7 +174,7 @@ export default function Popup() {
         setSubmissionStatus("success");
         setTimeout(() => {
           closePopup();
-          setCurrentStep(1);
+          setCurrentStep(0);
           setFormData({
             fullName: "",
             phoneNumber: "",
@@ -188,6 +193,8 @@ export default function Popup() {
             artist: null,
             isImageView: false,
             selectedPosition: "front",
+            selectedTattooStyles: [],
+            somethingDifferent: false,
           });
           setSelectedArtist(null);
           setBodyPositionValue("");
@@ -362,13 +369,20 @@ export default function Popup() {
                 )}
               </div>
               <div className="w-full h-3/5 md:h-auto md:w-1/2 p-6 bg-white">
-                <form onSubmit={handleSubmit} className="flex flex-col h-full">
+                <form onSubmit={handleSubmit} className="flex flex-col min-h-full overflow-y-auto">
                   <button
                     onClick={closePopup}
                     className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-[21px]"
                   >
                     ✕
                   </button>
+                  {currentStep === 0 && (
+                    <Step0 
+                      formData={formData} 
+                      handleChange={handleChange} 
+                      disabled={isSubmitting}
+                    />
+                  )}
                   {currentStep === 1 && (
                     <Step1 
                       formData={formData} 
@@ -419,6 +433,18 @@ export default function Popup() {
                     id="tattoo_final"
                   />
                   <div className="md:mt-auto">
+                    {currentStep === 0 && (
+                      <button
+                        type="button"
+                        onClick={() => setCurrentStep(1)}
+                        disabled={isSubmitting}
+                        className={`w-full text-xs font-bold bg-[#ff4901] text-white py-3 rounded mt-6 ${
+                          isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#f46932]'
+                        }`}
+                      >
+                        NEXT
+                      </button>
+                    )}
                     {currentStep === 1 && (
                       <button
                         type="button"

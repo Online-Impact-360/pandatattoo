@@ -17,6 +17,8 @@ export async function POST(req) {
       } else if (key === "schedule") {
         data.availableDates = value.split(", "); // Split into array for Contentful
         data.schedule = value; // Keep as string for schedule field
+      } else if (key === "selectedTattooStyles") {
+        data.selectedTattooStyles = value ? value.split(", ") : []; // Split into array for validation
       } else {
         data[key] = value;
       }
@@ -46,6 +48,8 @@ export async function POST(req) {
       schedule: sanitizedData.schedule || "Not provided",
       miamiStatus: sanitizedData.miamiStatus || "Not provided",
       artistId: sanitizedData.artistId ? "Selected (ID: " + sanitizedData.artistId + ")" : "Not selected",
+      selectedTattooStyles: sanitizedData.selectedTattooStyles?.join(", ") || "Not provided",
+      somethingDifferent: sanitizedData.somethingDifferent ? "Yes" : "No",
     };
 
     // Configure Nodemailer transporter
@@ -166,6 +170,10 @@ export async function POST(req) {
             <div class="field">
               <span class="field-label">Description:</span>
               <span class="field-value">${emailData.tattooDescription}</span>
+            </div>
+            <div class="field">
+              <span class="field-label">Tattoo Styles:</span>
+              <span class="field-value">${emailData.selectedTattooStyles !== "Not provided" ? emailData.selectedTattooStyles : (emailData.somethingDifferent === "Yes" ? "Something different (not listed above)" : "Not specified")}</span>
             </div>
             <h2>Appointment Details</h2>
             <div class="field">

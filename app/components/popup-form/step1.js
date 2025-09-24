@@ -12,7 +12,7 @@ export default function Step1({ formData, handleChange, disabled }) {
   return (
     <div className="flex flex-col justify-between md:h-full">
       <div>
-        <h2 className="text-black text-lg font-bold mb-0 text-center">STEP 1/3</h2>
+        <h2 className="text-black text-lg font-bold mb-0 text-center">STEP 1/4</h2>
         <h3 className="text-sm text-gray-500 mb-2 text-center">Personal Info</h3>
         <div className="md:space-y-4">
           <div>

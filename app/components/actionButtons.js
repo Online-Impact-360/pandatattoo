@@ -27,13 +27,13 @@ export default function ActionButtons({ variant = "footer" }) {
       >
         <button
           onClick={() => openPopup()}
-          className="text-3xl bg-[#FF4901] hover:bg-[#ff6701] text-[#FFFFFF] px-10 py-5 rounded-md uppercase font-bold border-none"
+          className="luxury-button text-3xl text-white px-10 py-5 rounded-lg font-semibold transition-all duration-300 ease-in-out tracking-wide"
         >
           Book · Now
         </button>
         <button
           onClick={handleCall}
-          className="text-3xl bg-transparent hover:bg-[#FF4901] text-[#FF4901] hover:text-[#FFFFFF] px-10 py-5 rounded-md uppercase font-bold border-2 border-[#FF4901]"
+          className="luxury-button-outline text-3xl text-[#c7a03c] hover:text-white px-10 py-5 rounded-lg font-semibold transition-all duration-300 ease-in-out tracking-wide"
         >
           Call · Now
         </button>
@@ -43,18 +43,12 @@ export default function ActionButtons({ variant = "footer" }) {
 
   if (variant === "home") {
     return (
-      <div className="flex flex-col space-y-4 justify-center items-center bg-black/50 backdrop-blur-sm px-6 py-6 rounded-xl shadow-2xl">
+      <div className="">
         <button
           onClick={() => openPopup()}
-          className="px-8 py-3 bg-[#FF4901] hover:bg-[#ff6701] text-white rounded-md font-bold uppercase text-lg border-none transition-colors shadow-lg"
+          className="luxury-button px-8 p-5 text-white rounded-lg font-semibold text-xl uppercase text-base transition-all duration-300 ease-in-out tracking-wide"
         >
           Book Now
-        </button>
-        <button
-          onClick={handleCall}
-          className="px-8 py-3 bg-white text-[#FF4901] hover:bg-[#FF4901] hover:text-white rounded-md font-bold uppercase text-lg border-2 border-[#FF4901] transition-colors shadow"
-        >
-          Call Now
         </button>
       </div>
     );
@@ -65,13 +59,13 @@ export default function ActionButtons({ variant = "footer" }) {
     <div className="flex flex-col space-y-3">
       <button
         onClick={() => openPopup()}
-        className="px-6 py-3 bg-[#FF4901] hover:bg-[#ff6701] text-white rounded-md font-bold uppercase"
+        className="luxury-button text-3xl text-white px-10 py-5 rounded-lg font-semibold transition-all duration-300 ease-in-out tracking-wide"
       >
         Book Now
       </button>
       <button
         onClick={handleCall}
-        className="px-6 py-3 bg-transparent hover:bg-[#FF4901] text-[#FF4901] hover:text-white rounded-md font-bold uppercase border-2 border-[#FF4901]"
+        className="luxury-button-outline text-3xl text-[#c7a03c] hover:text-white px-10 py-5 rounded-lg font-semibold transition-all duration-300 ease-in-out tracking-wide"
       >
         Call Now
       </button>

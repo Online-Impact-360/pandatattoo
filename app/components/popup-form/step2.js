@@ -73,7 +73,7 @@ export default function Step2({ formData, handleChange, handleFileChange, onImag
         </div>
       ) : (
         <div>
-          <h2 className="text-black text-lg font-bold mb-0 text-center">STEP 2/3</h2>
+          <h2 className="text-black text-lg font-bold mb-0 text-center">STEP 2/4</h2>
           <h3 className="text-sm text-gray-500 mb-2 text-center">Tattoo Idea</h3>
           <div className="space-y-4">
             <div className="flex items-center">
