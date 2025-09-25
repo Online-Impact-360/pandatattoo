@@ -450,16 +450,28 @@ export default function Popup() {
                       </button>
                     )}
                     {currentStep === 1 && (
-                      <button
-                        type="button"
-                        onClick={() => setCurrentStep(2)}
-                        disabled={isSubmitting}
-                        className={`w-full text-xs font-bold bg-[#ff4901] text-white py-3 rounded mt-6 ${
-                          isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#f46932]'
-                        }`}
-                      >
-                        NEXT
-                      </button>
+                      <div className="flex space-x-2 mt-6">
+                        <button
+                          type="button"
+                          onClick={() => setCurrentStep(0)}
+                          disabled={isSubmitting}
+                          className={`w-1/2 bg-gray-300 text-black text-xs font-bold py-3 rounded ${
+                            isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-400'
+                          }`}
+                        >
+                          BACK
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setCurrentStep(2)}
+                          disabled={isSubmitting}
+                          className={`w-1/2 bg-[#ff4901] text-white text-xs font-bold py-3 rounded ${
+                            isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#f46932]'
+                          }`}
+                        >
+                          NEXT
+                        </button>
+                      </div>
                     )}
                     {currentStep === 2 && (
                       <div className="flex justify-between mt-6">
