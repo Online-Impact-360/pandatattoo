@@ -25,12 +25,12 @@ export default function Step3({ formData, handleChange, handleDateSelect, setFor
   return (
     <div className="flex flex-col justify-between md:h-full">
       <div>
-        <h2 className="text-black text-lg font-bold mb-0 text-center">STEP 4/4</h2>
-        <h3 className="text-sm text-gray-500 mb-2 text-center">Scheduling</h3>
+        <h2 className="text-white text-lg font-bold mb-0 text-center">STEP 4/4</h2>
+        <h3 className="text-sm text-gray-400 mb-2 text-center">Scheduling</h3>
         <div className="space-y-4">
           <div>
             <div className="relative mb-[-10px] px-3 z-10">
-              <label className="px-2 bg-white text-[11px] text-[#8c8c8c]">Select Available Dates*</label>
+              <label className="px-2 bg-[#111111] text-[11px] text-gray-400">Select Available Dates*</label>
             </div>
             <div>
               <input
@@ -162,7 +162,7 @@ export default function Step3({ formData, handleChange, handleDateSelect, setFor
           </div>
           <div className="space-y-2">
             <div className="relative mb-[-10px] px-3 z-10">
-              <label className="px-2 bg-white text-[11px] text-[#8c8c8c]">When do you want the tattoo?</label>
+              <label className="px-2 bg-[#111111] text-[11px] text-gray-400">When do you want the tattoo?</label>
             </div>
             <div className="flex">
               <div className="w-full text-center">

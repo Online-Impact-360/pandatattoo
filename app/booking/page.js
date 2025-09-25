@@ -200,7 +200,7 @@ export default function BookingPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center bg-black">
       <div className="w-full max-w-4xl mx-auto p-4">
         {submissionStatus === "success" && (
           <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
@@ -215,9 +215,9 @@ export default function BookingPage() {
           </div>
         )}
         {!submissionStatus && (
-          <div className="flex flex-col md:flex-row h-full max-h-[700px] md:items-stretch bg-white rounded-[20px] shadow-2xl">
+          <div className="flex flex-col md:flex-row h-full max-h-[700px] md:items-stretch bg-[#111111] rounded-[20px] shadow-2xl">
             <div
-              className={`flex flex-col w-full h-2/5 bg-white md:h-auto md:w-1/2 border-r border-[#E9E9E9] md:p-0 ${
+              className={`flex flex-col w-full h-2/5 bg-[#111111] md:h-auto md:w-1/2 border-r border-[#E9E9E9] md:p-0 ${
                 currentStep === 0 ? "hidden" : currentStep > 1 ? "hidden md:block" : "block"
               }`}
             >
@@ -225,7 +225,7 @@ export default function BookingPage() {
                 <div className="relative w-full h-full flex flex-col">
                   <button
                     onClick={() => setIsArtistPopupOpen(true)}
-                    className="absolute top-4 left-4 flex items-center text-black text-xs"
+                    className="absolute top-4 left-4 flex items-center text-white text-xs"
                   >
                     <span className="gb_change-icon mr-2">
                       <svg
@@ -270,7 +270,7 @@ export default function BookingPage() {
                   </div>
                   <button
                     onClick={() => setIsArtistPopupOpen(true)}
-                    className="flex items-center justify-center text-black text-xs"
+                    className="flex items-center justify-center text-white text-xs"
                   >
                     <div className="selectartist_title_icon mr-2">
                       <svg
@@ -320,7 +320,7 @@ export default function BookingPage() {
                 </div>
               )}
             </div>
-            <div className={`w-full h-full ${currentStep === 0 ? 'md:w-full' : 'md:h-auto md:w-1/2'} p-6 bg-white`}>
+            <div className={`w-full h-full ${currentStep === 0 ? 'md:w-full' : 'md:h-auto md:w-1/2'} p-6 bg-[#111111] text-white`}>
               <form onSubmit={handleSubmit} className="flex flex-col min-h-full overflow-y-auto">
                 {currentStep === 0 && (
                   <Step0 

@@ -43,11 +43,11 @@ export default function Step0({ formData, handleChange, disabled }) {
   return (
     <div className="flex flex-col justify-between md:h-full">
       <div>
-        <h2 className="text-black text-lg font-bold mb-0 text-center">STEP 1/4</h2>
-        <h3 className="text-sm text-gray-500 mb-4 text-center">Tattoo Style Selection</h3>
+        <h2 className="text-white text-lg font-bold mb-0 text-center">STEP 1/4</h2>
+        <h3 className="text-sm text-gray-400 mb-4 text-center">Tattoo Style Selection</h3>
 
         <div className="text-center mb-6">
-          <h4 className="text-black text-md font-semibold uppercase">SELECT ALL THAT APPLY</h4>
+          <h4 className="text-white text-md font-semibold uppercase">SELECT ALL THAT APPLY</h4>
         </div>
 
         <div className="max-w-md mx-auto">
@@ -80,8 +80,8 @@ export default function Step0({ formData, handleChange, disabled }) {
                     />
                   </div>
                 </div>
-                <div className="p-2 bg-white">
-                  <p className="text-xs text-center text-black font-medium">{style.name}</p>
+                <div className="p-2 bg-[#1a1a1a]">
+                  <p className="text-xs text-center text-white font-medium">{style.name}</p>
                 </div>
               </div>
             ))}
@@ -97,7 +97,7 @@ export default function Step0({ formData, handleChange, disabled }) {
               className="w-4 h-4 text-[#ff4901] bg-gray-100 border-gray-300 rounded focus:ring-[#ff4901] focus:ring-2 mr-3"
               disabled={disabled}
             />
-            <span className={`text-sm ${disabled ? 'text-gray-400' : 'text-black'}`}>
+            <span className={`text-sm ${disabled ? 'text-gray-500' : 'text-white'}`}>
               Something different (if none above apply)
             </span>
           </label>

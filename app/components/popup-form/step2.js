@@ -56,8 +56,8 @@ export default function Step2({ formData, handleChange, handleFileChange, onImag
       {formData.isImageView ? (
         <div className="flex flex-col h-full">
           <div>
-            <h2 className="text-black text-lg font-bold mb-0 text-center">STEP 3/4</h2>
-            <h3 className="text-sm text-gray-500 mb-2 text-center">Tattoo Idea</h3>
+            <h2 className="text-white text-lg font-bold mb-0 text-center">STEP 3/4</h2>
+            <h3 className="text-sm text-gray-400 mb-2 text-center">Tattoo Idea</h3>
           </div>
           <div className="flex-1 flex items-center justify-center p-4">
             {formData.gender === "Male" ? (
@@ -77,8 +77,8 @@ export default function Step2({ formData, handleChange, handleFileChange, onImag
         </div>
       ) : (
         <div>
-          <h2 className="text-black text-lg font-bold mb-0 text-center">STEP 3/4</h2>
-          <h3 className="text-sm text-gray-500 mb-2 text-center">Tattoo Idea</h3>
+          <h2 className="text-white text-lg font-bold mb-0 text-center">STEP 3/4</h2>
+          <h3 className="text-sm text-gray-400 mb-2 text-center">Tattoo Idea</h3>
           <div className="space-y-4">
             <div className="flex items-center">
               <div className="w-full text-center">
@@ -125,7 +125,7 @@ export default function Step2({ formData, handleChange, handleFileChange, onImag
             </div>
             <div className="flex items-center">
               <div className="w-full">
-                <label className="px-2 bg-white text-[11px] text-[#8c8c8c]">Body Position*</label>
+                <label className="px-2 bg-[#111111] text-[11px] text-gray-400">Body Position*</label>
               </div>
               <div className="flex w-[300px]">
                 <div className="w-full">
@@ -259,14 +259,14 @@ export default function Step2({ formData, handleChange, handleFileChange, onImag
             </div>
             <div>
               <div className="relative mb-[-10px] px-3 z-10">
-                <label className="px-2 bg-white text-[11px] text-[#8c8c8c]">Describe your tattoo*</label>
+                <label className="px-2 bg-[#111111] text-[11px] text-gray-400">Describe your tattoo*</label>
               </div>
               <div>
                 <textarea
                   name="tattooDescription"
                   value={formData.tattooDescription}
                   onChange={handleChange}
-                  className="w-full p-2 border border-solid border-[#e8e6e6] rounded text-black text-sm"
+                  className="w-full p-2 border border-solid border-[#e8e6e6] rounded text-black text-sm bg-white"
                   rows="3"
                   required
                 />
@@ -274,7 +274,7 @@ export default function Step2({ formData, handleChange, handleFileChange, onImag
             </div>
             <div className="flex items-center">
               <div className="w-[90px] text-left">
-                <label className="px-2 bg-white text-[11px] text-[#8c8c8c]">Upload Image</label>
+                <label className="px-2 bg-[#111111] text-[11px] text-gray-400">Upload Image</label>
               </div>
               <div>
                 <input
