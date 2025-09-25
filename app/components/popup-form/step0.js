@@ -43,7 +43,7 @@ export default function Step0({ formData, handleChange, disabled }) {
   return (
     <div className="flex flex-col justify-between md:h-full">
       <div>
-        <h2 className="text-black text-lg font-bold mb-0 text-center">STEP 0/4</h2>
+        <h2 className="text-black text-lg font-bold mb-0 text-center">STEP 1/4</h2>
         <h3 className="text-sm text-gray-500 mb-4 text-center">Tattoo Style Selection</h3>
 
         <div className="text-center mb-6">

@@ -25,7 +25,7 @@ export default function Step3({ formData, handleChange, handleDateSelect, setFor
   return (
     <div className="flex flex-col justify-between md:h-full">
       <div>
-        <h2 className="text-black text-lg font-bold mb-0 text-center">STEP 3/4</h2>
+        <h2 className="text-black text-lg font-bold mb-0 text-center">STEP 4/4</h2>
         <h3 className="text-sm text-gray-500 mb-2 text-center">Scheduling</h3>
         <div className="space-y-4">
           <div>
@@ -158,6 +158,73 @@ export default function Step3({ formData, handleChange, handleDateSelect, setFor
                   Strict Schedule
                 </span>
               </label>
+            </div>
+          </div>
+          <div className="space-y-2">
+            <div className="relative mb-[-10px] px-3 z-10">
+              <label className="px-2 bg-white text-[11px] text-[#8c8c8c]">When do you want the tattoo?</label>
+            </div>
+            <div className="flex">
+              <div className="w-full text-center">
+                <label className="flex items-center">
+                  <input
+                    className="hidden"
+                    type="radio"
+                    name="desiredTiming"
+                    value="today"
+                    checked={formData.desiredTiming === "today"}
+                    onChange={handleChange}
+                  />
+                  <span
+                    onClick={() => handleSpanClick("desiredTiming", "today")}
+                    className={`w-full border border-solid border-[#e8e6e6] py-2 text-[14px] rounded-tl-md rounded-bl-md cursor-pointer ${
+                      formData.desiredTiming === "today" ? "bg-[#ff4901] text-white" : "text-[#8c8c8c] hover:bg-gray-200"
+                    }`}
+                  >
+                    Today
+                  </span>
+                </label>
+              </div>
+              <div className="w-full text-center">
+                <label className="flex items-center">
+                  <input
+                    className="hidden"
+                    type="radio"
+                    name="desiredTiming"
+                    value="next_week"
+                    checked={formData.desiredTiming === "next_week"}
+                    onChange={handleChange}
+                  />
+                  <span
+                    onClick={() => handleSpanClick("desiredTiming", "next_week")}
+                    className={`w-full border border-solid border-[#e8e6e6] py-2 text-[14px] cursor-pointer ${
+                      formData.desiredTiming === "next_week" ? "bg-[#ff4901] text-white" : "text-[#8c8c8c] hover:bg-gray-200"
+                    }`}
+                  >
+                    Next week
+                  </span>
+                </label>
+              </div>
+              <div className="w-full text-center">
+                <label className="flex items-center">
+                  <input
+                    className="hidden"
+                    type="radio"
+                    name="desiredTiming"
+                    value="not_in_a_rush"
+                    checked={formData.desiredTiming === "not_in_a_rush"}
+                    onChange={handleChange}
+                  />
+                  <span
+                    onClick={() => handleSpanClick("desiredTiming", "not_in_a_rush")}
+                    className={`w-full border border-solid border-[#e8e6e6] py-2 text-[14px] rounded-tr-md rounded-br-md cursor-pointer ${
+                      formData.desiredTiming === "not_in_a_rush" ? "bg-[#ff4901] text-white" : "text-[#8c8c8c] hover:bg-gray-200"
+                    }`}
+                  >
+                    Not in a rush
+                  </span>
+                </label>
+              </div>
             </div>
           </div>
         </div>

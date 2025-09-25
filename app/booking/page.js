@@ -27,6 +27,7 @@ export default function BookingPage() {
     selectedPosition: "front",
     selectedTattooStyles: [],
     somethingDifferent: false,
+    desiredTiming: "",
   });
   const [isArtistPopupOpen, setIsArtistPopupOpen] = useState(false);
   const [selectedArtist, setSelectedArtist] = useState(null);
@@ -167,6 +168,7 @@ export default function BookingPage() {
             selectedPosition: "front",
             selectedTattooStyles: [],
             somethingDifferent: false,
+            desiredTiming: "",
           });
           setSelectedArtist(null);
           setBodyPositionValue("");
