@@ -12,12 +12,12 @@ export default function Step1({ formData, handleChange, disabled, artists, selec
   return (
     <div className="flex flex-col justify-between md:h-full">
       <div>
-        <h2 className="text-white text-lg font-bold mb-0 text-center">STEP 2/4</h2>
-        <h3 className="text-sm text-gray-400 mb-2 text-center">Personal Info</h3>
+        <h2 className="text-black text-lg font-bold mb-0 text-center">STEP 2/4</h2>
+        <h3 className="text-sm text-gray-500 mb-2 text-center">Personal Info</h3>
         <div className="md:space-y-4">
           <div>
             <div className="relative mb-[-10px] px-3 z-10">
-              <span className="px-2 bg-[#111111] text-[11px] text-gray-400">Full name*</span>
+              <span className="px-2 bg-white text-[11px] text-[#8c8c8c]">Full name*</span>
             </div>
             <div className="relative z-0">
               <input
@@ -25,7 +25,7 @@ export default function Step1({ formData, handleChange, disabled, artists, selec
                 name="fullName"
                 value={formData.fullName}
                 onChange={handleChange}
-                className={`w-full p-2 px-4 border border-solid border-[#e8e6e6] rounded-md text-black text-sm bg-white ${
+                className={`w-full p-2 px-4 border border-solid border-[#e8e6e6] rounded-md text-black text-sm ${
                   disabled ? 'opacity-50 cursor-not-allowed' : ''
                 }`}
                 disabled={disabled}
@@ -35,7 +35,7 @@ export default function Step1({ formData, handleChange, disabled, artists, selec
           </div>
           <div>
             <div className="relative mb-[-10px] px-3 z-10">
-              <span className="px-2 bg-[#111111] text-[11px] text-gray-400">Phone Number*</span>
+              <span className="px-2 bg-white text-[11px] text-[#8c8c8c]">Phone Number*</span>
             </div>
             <div className="relative z-0">
               <input
@@ -43,7 +43,7 @@ export default function Step1({ formData, handleChange, disabled, artists, selec
                 name="phoneNumber"
                 value={formData.phoneNumber}
                 onChange={handleChange}
-                className={`w-full p-2 border border-solid border-[#e8e6e6] rounded-md text-black text-sm bg-white ${
+                className={`w-full p-2 border border-solid border-[#e8e6e6] rounded-md text-black text-sm ${
                   disabled ? 'opacity-50 cursor-not-allowed' : ''
                 }`}
                 disabled={disabled}
@@ -53,7 +53,7 @@ export default function Step1({ formData, handleChange, disabled, artists, selec
           </div>
           <div>
             <div className="relative mb-[-10px] px-3 z-10">
-              <span className="px-2 bg-[#111111] text-[11px] text-gray-400">Email Address*</span>
+              <span className="px-2 bg-white text-[11px] text-[#8c8c8c]">Email Address*</span>
             </div>
             <div className="relative z-0">
               <input
@@ -61,7 +61,7 @@ export default function Step1({ formData, handleChange, disabled, artists, selec
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className={`w-full p-2 border border-solid border-[#e8e6e6] rounded-md text-black text-sm bg-white ${
+                className={`w-full p-2 border border-solid border-[#e8e6e6] rounded-md text-black text-sm ${
                   disabled ? 'opacity-50 cursor-not-allowed' : ''
                 }`}
                 disabled={disabled}
@@ -71,7 +71,7 @@ export default function Step1({ formData, handleChange, disabled, artists, selec
           </div>
           <div>
             <div className="relative mb-[-10px] px-3 z-10">
-              <span className="px-2 bg-[#111111] text-[11px] text-gray-400">Preferred Artist</span>
+              <span className="px-2 bg-white text-[11px] text-[#8c8c8c]">Preferred Artist</span>
             </div>
             <div className="relative z-0">
               <input
@@ -80,7 +80,7 @@ export default function Step1({ formData, handleChange, disabled, artists, selec
                 readOnly
                 onClick={() => !disabled && setIsArtistPopupOpen(true)}
                 placeholder="Select preferred artist (optional)"
-                className={`w-full p-2 px-4 border border-solid border-[#e8e6e6] rounded-md text-black text-sm bg-white cursor-pointer ${
+                className={`w-full p-2 px-4 border border-solid border-[#e8e6e6] rounded-md text-black text-sm cursor-pointer ${
                   disabled ? 'opacity-50 cursor-not-allowed' : ''
                 }`}
                 disabled={disabled}
@@ -89,7 +89,7 @@ export default function Step1({ formData, handleChange, disabled, artists, selec
           </div>
           <div className="flex align-center pt-2">
             <div className="mt-2">
-              <label className="text-gray-400 text-[11px] mr-3">Age*</label>
+              <label className="text-[#8c8c8c] text-[11px] mr-3">Age*</label>
             </div>
             <div className="w-full text-center">
               <label className="flex items-center">

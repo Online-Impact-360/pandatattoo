@@ -1,4 +1,4 @@
-import Footer from "./components/footer";
+import ConditionalFooter from "./components/ConditionalFooter";
 import Header from "./components/header";
 import Popup from "./components/popup";
 import { PopupProvider } from "../context/popupContext";
@@ -151,7 +151,7 @@ export default function RootLayout({ children }) {
         <PopupProvider>
           <Header />
           {children}
-          <Footer />
+          <ConditionalFooter />
           <Popup />
         </PopupProvider>
       </body>
