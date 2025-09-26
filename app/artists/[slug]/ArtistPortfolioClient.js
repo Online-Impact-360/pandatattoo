@@ -45,6 +45,7 @@ export default function ArtistPortfolioClient({ artist, columns, rows }) {
           <div className="relative flex w-2/5 py-[6px] px-6 sm:px-12 lg:px-20 items-center text-center">
             <button
               onClick={handleOpenPopup}
+              type="button"
               className="relative w-full text-nowrap text-sm md:text-lg lg:text-3xl xl:text-5xl m-auto py-2 xl:py-5 transition-transform duration-500 bg-[#FF4901] hover:bg-[#ff6701] text-white font-bold rounded-md"
             >
               BOOK · NOW

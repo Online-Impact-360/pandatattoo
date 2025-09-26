@@ -28,6 +28,7 @@ export default function BookingPage() {
     selectedTattooStyles: [],
     somethingDifferent: false,
     desiredTiming: "",
+    scheduleType: "",
   });
   const [isArtistPopupOpen, setIsArtistPopupOpen] = useState(false);
   const [selectedArtist, setSelectedArtist] = useState(null);
@@ -35,6 +36,7 @@ export default function BookingPage() {
   const [bodyPositionValue, setBodyPositionValue] = useState("");
   const [artists, setArtists] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [stepError, setStepError] = useState("");
 
   // Normalize URLs to ensure absolute URLs
   const normalizeImageUrl = (url) => {
@@ -64,6 +66,85 @@ export default function BookingPage() {
 
     fetchArtists();
   }, []);
+
+  const validateEmail = (email) => /[^\s@]+@[^\s@]+\.[^\s@]+/.test(email || "");
+  const validatePhone = (phone) => /[0-9]{7,}/.test((phone || "").replace(/[^0-9]/g, ""));
+
+  const validateStep = (step, data) => {
+    console.log(`Validating step ${step} with data:`, data);
+    switch (step) {
+      case 0: {
+        if ((data.selectedTattooStyles?.length || 0) === 0 && !data.somethingDifferent) {
+          console.log('Step 0 validation failed: no styles selected');
+          return { valid: false, message: "Please select at least one tattoo style or choose 'Something different'." };
+        }
+        console.log('Step 0 validation passed');
+        return { valid: true };
+      }
+      case 1: {
+        if (!data.fullName?.trim()) {
+          console.log('Step 1 validation failed: fullName empty');
+          return { valid: false, message: "Full name is required." };
+        }
+        if (!validatePhone(data.phoneNumber)) {
+          console.log('Step 1 validation failed: invalid phone');
+          return { valid: false, message: "Please enter a valid phone number." };
+        }
+        if (!validateEmail(data.email)) {
+          console.log('Step 1 validation failed: invalid email');
+          return { valid: false, message: "Please enter a valid email address." };
+        }
+        if (!(data.age === "under18" || data.age === "over18")) {
+          console.log('Step 1 validation failed: age not selected');
+          return { valid: false, message: "Please select your age group." };
+        }
+        console.log('Step 1 validation passed');
+        return { valid: true };
+      }
+      case 2: {
+        if (!(data.gender === "Male" || data.gender === "Female")) {
+          console.log('Step 2 validation failed: gender not selected');
+          return { valid: false, message: "Please select gender." };
+        }
+        if (!data.size) {
+          console.log('Step 2 validation failed: size not selected');
+          return { valid: false, message: "Please select size." };
+        }
+        if (!data.color) {
+          console.log('Step 2 validation failed: color not selected');
+          return { valid: false, message: "Please select color preference." };
+        }
+        if (!data.tattooDescription || data.tattooDescription.trim().length < 10) {
+          console.log('Step 2 validation failed: description too short');
+          return { valid: false, message: "Please describe your tattoo (at least 10 characters)." };
+        }
+        if (data.isImageView && !(data.bodyPositionImage && data.bodyPositionImage.trim().length > 0)) {
+          console.log('Step 2 validation failed: no body position selected in image view');
+          return { valid: false, message: "Please select at least one body position on the model." };
+        }
+        console.log('Step 2 validation passed');
+        return { valid: true };
+      }
+      case 3: {
+        if (!Array.isArray(data.schedule) || data.schedule.length === 0) {
+          console.log('Step 3 validation failed: no dates selected');
+          return { valid: false, message: "Please select at least one date." };
+        }
+        if (!data.location) {
+          console.log('Step 3 validation failed: location not selected');
+          return { valid: false, message: "Please select your location (Live in Miami or Visiting Miami)." };
+        }
+        if (!data.scheduleType) {
+          console.log('Step 3 validation failed: scheduleType not selected');
+          return { valid: false, message: "Please select your schedule type (Flexible or Strict)." };
+        }
+        console.log('Step 3 validation passed');
+        return { valid: true };
+      }
+      default:
+        return { valid: true };
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -119,6 +200,11 @@ export default function BookingPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isSubmitting) return;
+    const v = validateStep(3, formData);
+    if (!v.valid) {
+      setStepError(v.message);
+      return;
+    }
     
     setIsSubmitting(true);
     const formDataToSend = new FormData();
@@ -169,6 +255,7 @@ export default function BookingPage() {
             selectedTattooStyles: [],
             somethingDifferent: false,
             desiredTiming: "",
+            scheduleType: "",
           });
           setSelectedArtist(null);
           setBodyPositionValue("");
@@ -225,6 +312,7 @@ export default function BookingPage() {
                 <div className="relative w-full h-full flex flex-col">
                   <button
                     onClick={() => setIsArtistPopupOpen(true)}
+                    type="button"
                     className="absolute top-4 left-4 flex items-center text-black text-xs"
                   >
                     <span className="gb_change-icon mr-2">
@@ -270,6 +358,7 @@ export default function BookingPage() {
                   </div>
                   <button
                     onClick={() => setIsArtistPopupOpen(true)}
+                    type="button"
                     className="flex items-center justify-center text-black text-xs"
                   >
                     <div className="selectartist_title_icon mr-2">
@@ -311,6 +400,7 @@ export default function BookingPage() {
                       </ul>
                     </div>
                     <button
+                    type="button"
                       onClick={() => setIsArtistPopupOpen(false)}
                       className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
                     >
@@ -383,10 +473,18 @@ export default function BookingPage() {
                   id="tattoo_final"
                 />
                 <div className="md:mt-auto">
+                  {stepError && (
+                    <div className="text-red-600 text-xs font-semibold mb-2 text-center">{stepError}</div>
+                  )}
                   {currentStep === 0 && (
                     <button
                       type="button"
-                      onClick={() => setCurrentStep(1)}
+                      onClick={() => {
+                        const v = validateStep(0, formData);
+                        if (!v.valid) return setStepError(v.message);
+                        setStepError("");
+                        setCurrentStep(1);
+                      }}
                       disabled={isSubmitting}
                       className={`w-auto px-8 mx-auto block text-xs font-bold bg-[#ff4901] text-white py-3 rounded mt-4 ${
                         isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#f46932]'
@@ -409,7 +507,12 @@ export default function BookingPage() {
                       </button>
                       <button
                         type="button"
-                        onClick={() => setCurrentStep(2)}
+                        onClick={() => {
+                          const v = validateStep(1, formData);
+                          if (!v.valid) return setStepError(v.message);
+                          setStepError("");
+                          setCurrentStep(2);
+                        }}
                         disabled={isSubmitting}
                         className={`w-1/2 bg-[#ff4901] text-white text-xs font-bold py-3 rounded ${
                           isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#f46932]'
@@ -435,7 +538,12 @@ export default function BookingPage() {
                           </button>
                           <button
                             type="button"
-                            onClick={() => setCurrentStep(3)}
+                            onClick={() => {
+                              const v = validateStep(2, formData);
+                              if (!v.valid) return setStepError(v.message);
+                              setStepError("");
+                              setCurrentStep(3);
+                            }}
                             disabled={isSubmitting}
                             className={`w-1/2 bg-[#ff4901] text-white text-xs font-bold py-3 rounded ${
                               isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#f46932]'

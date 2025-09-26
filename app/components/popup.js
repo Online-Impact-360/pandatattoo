@@ -37,6 +37,7 @@ export default function Popup() {
   const [bodyPositionValue, setBodyPositionValue] = useState("");
   const [artists, setArtists] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [stepError, setStepError] = useState("");
 
   // Normalize URLs to ensure absolute URLs
   const normalizeImageUrl = (url) => {
@@ -90,6 +91,45 @@ export default function Popup() {
       setBodyPositionValue("");
     }
   }, [popupData, isOpen]);
+
+  const validateEmail = (email) => /[^\s@]+@[^\s@]+\.[^\s@]+/.test(email || '');
+  const validatePhone = (phone) => /[0-9]{7,}/.test((phone || '').replace(/[^0-9]/g, ''));
+
+  const validateStep = (step, data) => {
+    switch (step) {
+      case 0: {
+        if ((data.selectedTattooStyles?.length || 0) === 0 && !data.somethingDifferent) {
+          return { valid: false, message: "Please select at least one tattoo style or choose 'Something different'." };
+        }
+        return { valid: true };
+      }
+      case 1: {
+        if (!data.fullName?.trim()) return { valid: false, message: "Full name is required." };
+        if (!validatePhone(data.phoneNumber)) return { valid: false, message: "Please enter a valid phone number." };
+        if (!validateEmail(data.email)) return { valid: false, message: "Please enter a valid email address." };
+        if (!(data.age === "under18" || data.age === "over18")) return { valid: false, message: "Please select your age group." };
+        return { valid: true };
+      }
+      case 2: {
+        if (!(data.gender === "Male" || data.gender === "Female")) return { valid: false, message: "Please select gender." };
+        if (!data.size) return { valid: false, message: "Please select size." };
+        if (!data.color) return { valid: false, message: "Please select color preference." };
+        if (!data.tattooDescription || data.tattooDescription.trim().length < 10)
+          return { valid: false, message: "Please describe your tattoo (at least 10 characters)." };
+        if (data.isImageView && !(data.bodyPositionImage && data.bodyPositionImage.trim().length > 0))
+          return { valid: false, message: "Please select at least one body position on the model." };
+        return { valid: true };
+      }
+      case 3: {
+        if (!Array.isArray(data.schedule) || data.schedule.length === 0) return { valid: false, message: "Please select at least one date." };
+        if (!data.location) return { valid: false, message: "Please select your location (Live in Miami or Visiting Miami)." };
+        if (!data.scheduleType) return { valid: false, message: "Please select your schedule type (Flexible or Strict)." };
+        return { valid: true };
+      }
+      default:
+        return { valid: true };
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -145,6 +185,9 @@ export default function Popup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isSubmitting) return; // Prevent multiple submissions
+
+    const v = validateStep(3, formData);
+    if (!v.valid) { setStepError(v.message); return; }
     
     setIsSubmitting(true);
     const formDataToSend = new FormData();
@@ -195,6 +238,8 @@ export default function Popup() {
             selectedPosition: "front",
             selectedTattooStyles: [],
             somethingDifferent: false,
+            scheduleType: "",
+            desiredTiming: "",
           });
           setSelectedArtist(null);
           setBodyPositionValue("");
@@ -237,6 +282,7 @@ export default function Popup() {
             <p className="text-black">Your email has been sent successfully.</p>
             <button
               onClick={closePopup}
+              type="button"
               className="mt-4 bg-[#ff4901] text-white py-2 px-4 rounded hover:bg-[#f46932]"
             >
               Close
@@ -251,6 +297,7 @@ export default function Popup() {
             <p className="text-black">Failed to send your request. Please try again.</p>
             <button
               onClick={() => setSubmissionStatus(null)}
+              type="button"
               className="mt-4 bg-[#ff4901] text-white py-2 px-4 rounded hover:bg-[#f46932]"
             >
               Try Again
@@ -273,6 +320,7 @@ export default function Popup() {
                   <div className="relative w-full h-full flex flex-col">
                     <button
                       onClick={() => setIsArtistPopupOpen(true)}
+                      type="button"
                       className="absolute top-4 left-4 flex items-center text-black text-xs"
                     >
                       <span className="gb_change-icon mr-2">
@@ -316,6 +364,7 @@ export default function Popup() {
                     </div>
                     <button
                       onClick={() => setIsArtistPopupOpen(true)}
+                      type="button"
                       className="flex items-center justify-center text-black text-xs"
                     >
                       <div className="selectartist_title_icon mr-2">
@@ -360,6 +409,7 @@ export default function Popup() {
                       </div>
                       <button
                         onClick={() => setIsArtistPopupOpen(false)}
+                        type="button"
                         className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
                       >
                         ✕
@@ -438,10 +488,18 @@ export default function Popup() {
                     id="tattoo_final"
                   />
                   <div className="md:mt-auto">
+                  {stepError && (
+                      <div className="text-red-600 text-xs font-semibold mb-2 text-center">{stepError}</div>
+                    )}
                     {currentStep === 0 && (
                       <button
                         type="button"
-                        onClick={() => setCurrentStep(1)}
+                        onClick={() => {
+                          const v = validateStep(0, formData);
+                          if (!v.valid) return setStepError(v.message);
+                          setStepError("");
+                          setCurrentStep(1);
+                        }}
                         disabled={isSubmitting}
                         className={`w-auto px-8 mx-auto block text-xs font-bold bg-[#ff4901] text-white py-3 rounded mt-4 ${
                           isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#f46932]'
@@ -464,7 +522,12 @@ export default function Popup() {
                         </button>
                         <button
                           type="button"
-                          onClick={() => setCurrentStep(2)}
+                          onClick={() => {
+                            const v = validateStep(1, formData);
+                            if (!v.valid) return setStepError(v.message);
+                            setStepError("");
+                            setCurrentStep(2);
+                          }}
                           disabled={isSubmitting}
                           className={`w-1/2 bg-[#ff4901] text-white text-xs font-bold py-3 rounded ${
                             isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#f46932]'
@@ -490,7 +553,12 @@ export default function Popup() {
                             </button>
                             <button
                               type="button"
-                              onClick={() => setCurrentStep(3)}
+                              onClick={() => {
+                                const v = validateStep(2, formData);
+                                if (!v.valid) return setStepError(v.message);
+                                setStepError("");
+                                setCurrentStep(3);
+                              }}
                               disabled={isSubmitting}
                               className={`w-1/2 bg-[#ff4901] text-white text-xs font-bold py-3 rounded ${
                                 isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#f46932]'

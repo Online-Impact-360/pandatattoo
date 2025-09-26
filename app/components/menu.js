@@ -32,6 +32,7 @@ export default function Menu() {
       <div onMouseEnter={handleMenuShow} onMouseLeave={handleMenuHidden} className="relative flex rounded-md overflow-hidden">
         <button
           ref={menuBtnRef}
+          type="button"
           className="absolute left-0 flex items-center gap-2 bg-black text-white py-3 px-6 text-sm md:text-lg rounded-md font-bold uppercase z-50 hover:text-[#ff4901]"
         >
           <span>Menu</span>
