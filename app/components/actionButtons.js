@@ -46,7 +46,7 @@ export default function ActionButtons({ variant = "footer" }) {
       <div className="">
         <button
           onClick={() => openPopup()}
-          className="luxury-button px-8 p-5 text-white rounded-lg font-semibold text-xl uppercase text-base transition-all duration-300 ease-in-out tracking-wide"
+          className="luxury-button px-8 p-5 text-white rounded-lg font-semibold uppercase text-base transition-all duration-300 ease-in-out tracking-wide"
         >
           Book Now
         </button>

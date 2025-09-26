@@ -3,7 +3,7 @@
 export default function Expect() {
   return (
     <div className="rounded-md transparent">
-      <div className="relative flex flex-col pb-20 text text-center rounded-tr-[50px] rounded-tl-[50px] bg-black shadow-2xl shadow-[0_25px_60px_15px_rgba(225,225,225,0.9)]">
+      <div className="relative flex flex-col pb-20 text text-center rounded-tr-[50px] rounded-tl-[50px] bg-black shadow-[0_25px_60px_15px_rgba(225,225,225,0.9)]">
         <h2 className="flex p-10 mb-10">
           <span className="text-left text-6xl font-bold">WHAT YOU CAN EXPECT</span>
           <span className="ml-5">[ 01 ]</span>

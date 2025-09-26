@@ -8,7 +8,7 @@ export default function Footer() {
   const { openPopup } = usePopup();
 
   return (
-    <footer className="relative accordion bg-[#110E09] rounded-tr-[50px] rounded-tl-[50px] overflow-hidden z-10 shadow-2xl shadow-[0_25px_60px_15px_rgba(225,225,225,0.9)] transition-shadow duration-300 hover:shadow-[0px_0px_25px_rgba(255,255,255,0.3)]">
+    <footer className="relative accordion bg-[#110E09] rounded-tr-[50px] rounded-tl-[50px] overflow-hidden z-10 shadow-[0_25px_60px_15px_rgba(225,225,225,0.9)] transition-shadow duration-300 hover:shadow-[0px_0px_25px_rgba(255,255,255,0.3)]">
       <div className="title hidden">
         <h2 className="flex border-t-2 border-b-2 p-5">
           <span className="w-1/5 text-left"></span>
@@ -69,7 +69,7 @@ export default function Footer() {
             </svg>
           </Link>
         </div>
-        <div className="flex flex-col md:flex-row justify-between items-stretch items-center p-10 space-y-6 md:space-y-0">
+        <div className="flex flex-col md:flex-row justify-between items-center p-10 space-y-6 md:space-y-0">
           <div className="w-full md:w-1/3 flex flex-col md:flex-row justify-center md:space-x-6">
             <div className="md:flex md:justify-center md:items-center">
               <ul className="flex md:block text-2xl md:text-[34px] text-center font-bold uppercase">

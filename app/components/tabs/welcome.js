@@ -125,7 +125,7 @@ export default function Welcome({ isActive }) {
   return (
     <section
       ref={sectionRef}
-      className="relative accordion rounded-md transparent overflow-hidden bg-[#090D11] shadow-2xl shadow-[0_25px_60px_15px_rgba(225,225,225,0.9)] rounded-tr-[50px] rounded-tl-[50px]"
+      className="relative accordion rounded-md transparent overflow-hidden bg-[#090D11] shadow-[0_25px_60px_15px_rgba(225,225,225,0.9)] rounded-tr-[50px] rounded-tl-[50px]"
       style={{ position: "relative", minHeight: "50vh" }}
     >
       <div className="title hidden">

@@ -260,7 +260,7 @@ export default function Popup() {
       )}
       {!submissionStatus && (
         <section
-          className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] md:w-[900px] h-[700px] md:max-h-[95%] bg-white rounded-[20px] z-[999] transition-transform duration-300 ease-in-out shadow-2xl shadow-[0_5px_20px_0px_rgba(225,225,225,0.3)]"
+          className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] md:w-[900px] h-[700px] md:max-h-[95%] bg-white rounded-[20px] z-[999] transition-transform duration-300 ease-in-out shadow-[0_5px_20px_0px_rgba(225,225,225,0.3)]"
         >
           <div className={`flex flex-col md:flex-row h-full max-h-[700px] md:items-stretch ${currentStep > 1 ? "" : "max-md:h-[700px]"}`}>
             <div className="popup flex flex-col md:flex-row h-full w-full max-h-[700px] md:items-stretch overflow-hidden rounded-[20px]">
@@ -372,6 +372,7 @@ export default function Popup() {
                 <form onSubmit={handleSubmit} className="flex flex-col min-h-full overflow-y-auto">
                   <button
                     onClick={closePopup}
+                    type="button"
                     className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-[21px]"
                   >
                     ✕
